@@ -41,6 +41,13 @@ public class Calculadora {
         System.out.println("El resultado de la resta es: " + resta);
         System.out.println("El resultado de la multiplicación es: " + mult);
         
-        
+        //Excepción con la divisió, se debe cuidar que el denominador sea diferente a 0
+        if(b == 0){
+            div = a/b;
+            System.out.println("Error por división con 0");
+        } else{
+            div = a/b;
+            System.out.println("El resultado de la división es: " + div);
+        }
     }
 }
