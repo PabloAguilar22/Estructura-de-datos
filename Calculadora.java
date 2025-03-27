@@ -1,15 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
- */
-
 package com.mycompany.calculadora;
-
-/**
- *
- * @author pablo
- */
-
 import java.util.Scanner;
 
 
@@ -37,12 +26,21 @@ public class Calculadora {
         suma = a + b;
         resta = a - b;
         mult = a*b;
-        div = a/b;
+        
+        //Excepción con la divisió, se debe cuidar que el denominador sea diferente a 0
+        if(b == 0){
+            div = a/b;
+            System.out.println("Error por división con 0");
+        } else{
+            div = a/b;
+            System.out.println("El resultado de la división es: " + div);
+        }
+        
         
         System.out.println("El resultado de la suma es: " + suma);
         System.out.println("El resultado de la resta es: " + resta);
         System.out.println("El resultado de la multiplicación es: " + mult);
-        System.out.println("El resultado de la división es: " + div);
+        
         
     }
 }
