@@ -1,77 +1,137 @@
-package com.mycompany.sobrecarga;
+package com.mycompany.practica_4;
 
-public class Sobrecarga {
-    
+import java.util.Scanner;
+
+public class Practica_4 {
+
     public static void main(String[] args) {
-    
-        // Objeto con 0 parámetros
-        Sobrecarga metodo1 = new Sobrecarga();
-        System.out.println("--- Operaciones con 0 parámetros ---");
-        System.out.println("No hay parametros, entonces no hay operaciones que realizar.");
         
-        System.out.println();
-        
-        // Objeto con 2 parámetros
-        Sobrecarga metodo2 = new Sobrecarga(12, 15);
-        System.out.println("--- Operaciones con 2 parámetros ---");
-        metodo2.suma();
-        metodo2.resta();
-        metodo2.mult();
-        metodo2.div();
-        System.out.println();
+    //Declaración de la variable opción
+        Scanner scanner = new Scanner(System.in);
+            
+    //Declaración de la variable opción
+        int op;
+          
+        do{
+                
+            System.out.println("==== CALCULADORA ====");
+              
+        //Opciones
+            System.out.println("1. Sumar");
+            System.out.println("2. Resta");
+            System.out.println("3. Multiplicación");
+            System.out.println("4. División");
+            System.out.println("5. Cerrar");
+                
+        //Registro de la opción
+            System.out.println("SELECCIONE UNA OPCIÓN: ");
+            op = scanner.nextInt();
+                
+            if(op >= 1 && op <= 4){
+                    
+            //Primer número
+                System.out.print("Ingrese su primer número: ");
+                int n1 = scanner.nextInt();
+                    
+            //Segundo número
+                System.out.print("Ingrese su segundo número: ");
+                int n2 = scanner.nextInt();
+                    
+            //Tercer número
+                System.out.print("¿Deseas ingresar un tercer npúmero?(S/N) ");
+                char res = scanner.next().charAt(0);
+                    
+                Calcular calcular;
+                    
+            //Nuevos objetos de las nuevas clases
+                if ( res == 's' || res =='S'){
+                        
+                    System.out.print("Ingrese su tercer número: ");
+                    int n3 = scanner.nextInt();
+                       
+                    calcular = new Calcular (n1, n2, n3);
+                        
+                } else{
+                        
+                    calcular = new Calcular (n1, n2);
+                }
+                    
+            //Menú de opciones
+                switch(op){
+                        
+                //Suma
+                    case 1 -> System.out.println("El resultado de la suma es: " + calcular.suma());
+                        
+                //Resta
+                    case 2 -> System.out.println("El resultado de la resta es: " + calcular.resta());
+                        
+                //Multiplicación
+                    case 3 -> System.out.println("El resultado de la multiplicación es: " + calcular.mult());
+                        
+                //División
+                    case 4 -> {
+                        if(n2 == 0){
+                            System.out.println("No se puede realizar la operación por dividir entre 0.");
+                        }else{
+                            System.out.println("El resultado de la división es: " + calcular.div());
+                        }
+                    }
+                }
+//Cierre de programa
+            }else if (op != 5){
+                System.out.println("No existe esta opción.");
+            }
+        } while (op != 5);
+            System.out.println("Cierre de Programa.");
+    }
+}
 
-        // Objeto con 3 parámetros
-        Sobrecarga metodo3 = new Sobrecarga(20, 22, 4);
-        System.out.println("--- Operaciones con 3 parámetros ---");
-        metodo3.suma();
-        metodo3.resta();
-        metodo3.mult();
-        metodo3.div();
+//Clase para las operaciones
+class Calcular{
+    private int a;
+    private int b;
+    private int c;
+
+    //Sin parametros
+    public Calcular() {
+        this.a = 0;
+        this.b = 0;
+        this.c = 0;
     }
-    
-    float a, b, c;
-   
-    // Constructor con 0 parámetros
-    public Sobrecarga() {  
  
-    }
-    
-    // Constructor con 2 parámetros
-    public Sobrecarga(float a, float b) {
+    //Constructor 2 parametros
+    public Calcular(int a, int b) {
         this.a = a;
         this.b = b;
+        this.c = 0;
     }
-
-    // Constructor con 3 parámetros
-    public Sobrecarga(float a, float b, float c) {
+    
+    //Constructor 3 Parametros
+    public Calcular(int a, int b, int c) {
         this.a = a;
         this.b = b;
         this.c = c;
     }
-
-    public void suma() {
-        
-        float resultado = a + b + c; 
-        System.out.println("La suma es: " + resultado);
+    
+    public int suma(){
+        return a + b + c;
     }
-
-    public void resta() {
-        
-        float resultado = a - b - c;
-        System.out.println("La resta es: " + resultado);
+    
+    public int resta(){
+        return a - b - c;
     }
-
-    public void mult() {
-        float resultado = (c == 0) ? a * b : a * b * c; // Usa c solo si está definido
-        System.out.println("La multiplicación es: " + resultado);
+    
+    public int mult(){
+        return a * b * (c == 0 ? 1 : c);
     }
-
-    public void div() {
-        if (b == 0) {
-            System.out.println("Error en la operación, por dividir entre 0"); 
-        } else{
-            float resultado = (c == 0) ? a * b : a * b * c; // Usa c solo si está definido
-            System.out.println("La división es: " + resultado);
+    
+    public double div(){
+        double x = b + c;
+        if (x == 0){
+            System.out.println("División entre 0 no es posible.");
+            return 0;
+        }else{
+            return a / x;
         }
-    }        
+    }
 }
