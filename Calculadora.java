@@ -1,46 +1,115 @@
 
 package com.mycompany.calculadora;
+
 import java.util.Scanner;
 
-
 public class Calculadora {
-    
+
     public static void main(String[] args) {
-        
+        //Creación de un nuevo scanner
         Scanner scanner = new Scanner(System.in);
         
-        //Se ocupa para guardar el ingreso de datos
-        System.out.println("Ingresa el primer número: ");
-        float a = scanner.nextFloat();
+        //declaración de variables
+        int n1;
+        int n2;
         
+        //Registro del primer número
+        System.out.print("Ingresa el primero número: ");
+        n1 = scanner.nextInt();
         
-        System.out.println("Ingresa el segundo número: ");
-        float b = scanner.nextFloat();
+        //Registro del segundo número
+        System.out.print("Ingresa un segundo número: ");
+        n2 = scanner.nextInt();
         
-        //Declaración de variables de la calculadora simple
-        float suma;
-        float resta;
-        float mult;
-        float div;
+        //Nuevos objetos de las nuevas clases
+        Suma suma = new Suma( n1, n2);
+        Resta resta = new Resta(n1, n2);
+        Mult mult = new Mult(n1, n2);
+        Div div = new Div( n1, n2);
         
-        //Operaciones
-        suma = a + b;
-        resta = a - b;
-        mult = a*b;
+        //Mostrar resultado
+        System.out.println("");
+        System.out.println("--- El resultado de la suma es: " + suma.calcular() + " ---");
+        System.out.println("--- El resultado de la resta es: " + resta.calcular() + " ---");
+        System.out.println("--- El resultado de la multiplicación es: " + mult.calcular() + " ---");
         
-        
-        System.out.println("El resultado de la suma es: " + suma);
-        System.out.println("El resultado de la resta es: " + resta);
-        System.out.println("El resultado de la multiplicación es: " + mult);
-        
-        //Excepción con la divisió, se debe cuidar que el denominador sea diferente a 0
-        if(b == 0){
-            div = a/b;
-            System.out.println("Error por división con 0");
-        } else{
-            div = a/b;
-            System.out.println("El resultado de la división es: " + div);
+        //Condición puesta a la división, solo cuando se indetermina con 0 en el dividendo
+        if ( n2 == 0) {
+            System.out.println("--- No se puede realizar la operación por dividir entre 0. ---");
+        } else {
+             System.out.println("--- El resultado de la división es: " + div.calcular() + " ---");
         }
+       
+        //Se cierra el scanner
+        scanner.close(); 
+    }
+}
+
+class Suma{
+    //Declaración de variables o atributos
+    private final int a;
+    private final int b;
+
+    //Constructor
+    public Suma(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
         
+    //Método para realizar la suma
+    public int calcular(){
+        return a + b;
+    }
+}
+
+class Resta{
+    //Declaración de variables o atributos
+    private final int a;
+    private final int b;
+
+    //Constructor
+    public Resta(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+        
+    //Método para realizar la suma
+    public int calcular(){
+        return a - b;
+    }
+}
+
+class Mult{
+    //Declaración de variables o atributos
+    private final int a;
+    private final int b;
+
+    //Constructor
+    public Mult(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+        
+    //Método para realizar la suma
+    public int calcular(){
+        return a * b;
+    }
+}
+
+class Div{
+    //Declaración de variables o atributos
+    private final int a;
+    private final int b;
+
+    //Constructor
+    public Div(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+        
+    //Método para realizar la suma
+    public int calcular(){
+        
+        return a / b;
     }
 }
