@@ -1,31 +1,53 @@
-package com.mycompany.suma;
+package com.mycompany.sumas;
 
 //Importación de librerías
 import java.util.Scanner;
 
-public class Suma {
+public class Sumas {
+
     public static void main(String [] args) {
+     
+        //Creación de un nuevo scanner
+        Scanner scanner = new Scanner(System.in);
         
-        //Declaración de variables
-        float result;
-        float a;
-        float b;
+        //declaración de variables
+        int n1;
+        int n2;
         
-        //Declaración del scanner para introducir datos
-        Scanner scanner = new Scanner (System.in);
-    
-        //Ingreso de datos
-        System.out.println("Ingresa el primer número: ");
-        a = scanner.nextFloat();
+        //Registro del primer número
+        System.out.println("Ingresa el primero número: ");
+        n1 = scanner.nextInt();
         
-        System.out.println("Ingresa el segundo número: ");
-        b = scanner.nextFloat();
+        //Registro del segundo número
+        System.out.println("Ingresa un segundo número: ");
+        n2 = scanner.nextInt();
         
-        //Operación
-        result = a + b;
+        //Nuevo objeto de la clase 
+        Suma suma = new Suma( n1, n2);
         
-        //Resultado de la operación
-        System.out.println("El resultado de la operación es: " + result);
+        //Mostrar resultado
+        System.out.println("El resultado de la suma es: " + suma.calcular());
+        
+        //Se cierra el scanner
+        scanner.close();        
     }
-    
+}
+
+//Clase Suma, en donde se realiza la operación correspondiente
+class Suma{
+        
+    //Declaración de variables o atributos
+    private int a;
+    private int b;
+
+    //Constructor
+    public Suma(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+        
+    //Método para realizar la suma
+    public int calcular(){
+        return a + b;
+    }
 }
