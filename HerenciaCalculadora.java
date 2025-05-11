@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Practica_5 {
+public class HerenciaCalculadora {
 
     public static void main(String[] args) {
 
@@ -40,16 +40,25 @@ public class Practica_5 {
                 }
 
                 switch (op) {
-                    case 1 -> System.out.println("El resultado de la suma es: " + calcular.suma());
-                    case 2 -> System.out.println("El resultado de la resta es: " + calcular.resta());
-                    case 3 -> System.out.println("El resultado de la multiplicación es: " + calcular.mult());
-                    case 4 -> {
+                    case 1: 
+                        System.out.println("El resultado de la suma es: " + calcular.suma());
+                    break;
+                    
+                    case 2: 
+                        System.out.println("El resultado de la resta es: " + calcular.resta());
+                    break;
+                    
+                    case 3: 
+                        System.out.println("El resultado de la multiplicación es: " + calcular.mult());
+                    break;
+                    
+                    case 4: 
                         if ((calcular.getB() + calcular.getC()) == 0) {
                             System.out.println("No se puede realizar la operación por dividir entre 0.");
                         } else {
                             System.out.println("El resultado de la división es: " + calcular.div());
                         }
-                    }
+                    break;
                 }
             } else if (op != 5) {
                 System.out.println("No existe esta opción.");

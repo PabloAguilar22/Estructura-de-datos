@@ -1,5 +1,3 @@
-package com.mycompany.sumas;
-
 //Importación de librerías
 import java.util.Scanner;
 
