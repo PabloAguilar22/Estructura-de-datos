@@ -66,6 +66,9 @@ public class HerenciaCalculadora {
         } while (op != 5);
 
         System.out.println("Cierre de Programa.");
+
+        //Se cierra el scanner
+        scanner.close(); 
     }
 }
 
