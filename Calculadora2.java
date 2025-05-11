@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class HerenciaCalc {
+public class Calculadora2 {
 
     public static void main(String[] args) {
 
