@@ -1,0 +1,79 @@
+package com.mycompany.txtprograma;
+
+import java.io.*;
+import java.util.*;
+
+class Persona {
+    String nombre;
+    int edad;
+    String ciudad;
+
+    public Persona(String nombre, int edad, String ciudad) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.ciudad = ciudad;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + "," + edad + "," + ciudad;
+    }
+}
+
+public class TXTPrograma {
+
+    static final String ARCHIVO_TXT = "personas.txt";
+
+    public static void main(String[] args) {
+        // Arreglo de personas
+        Persona[] personas = {
+            new Persona("Ana", 25, "Lima"),
+            new Persona("Luis", 30, "Bogotá"),
+            new Persona("Sofia", 22, "Quito")
+        };
+
+        // Escribir archivo
+        escribirTXT(personas);
+
+        // Leer archivo y cargar en lista
+        List<Persona> lista = leerTXT();
+
+        // Mostrar datos leídos
+        System.out.println("Personas leídas desde el archivo:");
+        for (Persona p : lista) {
+            System.out.println(p.nombre + " - " + p.edad + " - " + p.ciudad);
+        }
+    }
+
+    public static void escribirTXT(Persona[] personas) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(ARCHIVO_TXT))) {
+            for (Persona p : personas) {
+                writer.println(p); // usa toString()
+            }
+            System.out.println("Archivo TXT escrito exitosamente.");
+        } catch (IOException e) {
+            System.out.println("Error al escribir archivo: " + e.getMessage());
+        }
+    }
+
+    public static List<Persona> leerTXT() {
+        List<Persona> lista = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(ARCHIVO_TXT))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] partes = linea.split(",");
+                if (partes.length == 3) {
+                    String nombre = partes[0];
+                    int edad = Integer.parseInt(partes[1]);
+                    String ciudad = partes[2];
+                    lista.add(new Persona(nombre, edad, ciudad));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer archivo: " + e.getMessage());
+        }
+
+        return lista;
+    }
+}
