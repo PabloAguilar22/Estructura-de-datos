@@ -25,27 +25,46 @@ public class TXTPrograma {
     static final String ARCHIVO_TXT = "personas.txt";
 
     public static void main(String[] args) {
-        // Arreglo de personas
-        Persona[] personas = {
-            new Persona("Ana", 25, "Lima"),
-            new Persona("Luis", 30, "Bogotá"),
-            new Persona("Sofia", 22, "Quito")
-        };
+        Scanner scanner = new Scanner(System.in);
+        List<Persona> personas = new ArrayList<>();
 
-        // Escribir archivo
+        // Entrada de datos por consola
+        System.out.println("=== Ingreso de personas ===");
+        while (true) {
+            System.out.print("Nombre: ");
+            String nombre = scanner.nextLine();
+
+            System.out.print("Edad: ");
+            int edad = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("Ciudad: ");
+            String ciudad = scanner.nextLine();
+
+            personas.add(new Persona(nombre, edad, ciudad));
+
+            System.out.print("¿Deseas ingresar otra persona? (s/n): ");
+            String continuar = scanner.nextLine();
+            if (!continuar.equalsIgnoreCase("s")) {
+                break;
+            }
+        }
+
+        // Escribir al archivo TXT
         escribirTXT(personas);
 
-        // Leer archivo y cargar en lista
+        // Leer desde archivo TXT
         List<Persona> lista = leerTXT();
 
-        // Mostrar datos leídos
-        System.out.println("Personas leídas desde el archivo:");
+        // Mostrar los datos leídos
+        System.out.println("\n=== Personas leídas desde el archivo ===");
         for (Persona p : lista) {
             System.out.println(p.nombre + " - " + p.edad + " - " + p.ciudad);
         }
+
+        scanner.close();
     }
 
-    public static void escribirTXT(Persona[] personas) {
+    public static void escribirTXT(List<Persona> personas) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(ARCHIVO_TXT))) {
             for (Persona p : personas) {
                 writer.println(p); // usa toString()
