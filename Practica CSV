@@ -23,33 +23,52 @@ public class CSVPrograma {
     static final String ARCHIVO_CSV = "personas.csv";
 
     public static void main(String[] args) {
-        // 1. Crear arreglo de objetos Persona
-        Persona[] personasArray = {
-            new Persona("Ana", 25, "Lima"),
-            new Persona("Luis", 30, "Bogotá"),
-            new Persona("Sofía", 22, "Quito")
-        };
+        Scanner scanner = new Scanner(System.in);
+        List<Persona> personasList = new ArrayList<>();
+
+        // 1. Pedir datos al usuario
+        System.out.println("=== Ingreso de personas ===");
+        while (true) {
+            System.out.print("Nombre: ");
+            String nombre = scanner.nextLine();
+
+            System.out.print("Edad: ");
+            int edad = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("Ciudad: ");
+            String ciudad = scanner.nextLine();
+
+            personasList.add(new Persona(nombre, edad, ciudad));
+
+            System.out.print("¿Deseas ingresar otra persona? (s/n): ");
+            String continuar = scanner.nextLine();
+            if (!continuar.equalsIgnoreCase("s")) {
+                break;
+            }
+        }
 
         // 2. Escribir datos al CSV
-        escribirCSV(personasArray);
+        escribirCSV(personasList);
 
         // 3. Leer datos desde el CSV y guardar en una lista (ADT)
         List<Persona> listaPersonas = leerCSV();
 
         // 4. Mostrar los datos leídos
-        System.out.println("Datos leídos desde el CSV:");
+        System.out.println("\n=== Datos leídos desde el CSV ===");
         for (Persona p : listaPersonas) {
             System.out.println(p.nombre + " - " + p.edad + " - " + p.ciudad);
         }
+
+        scanner.close();
     }
 
     // Función para escribir al archivo CSV
-    public static void escribirCSV(Persona[] personas) {
+    public static void escribirCSV(List<Persona> personas) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(ARCHIVO_CSV))) {
             for (Persona p : personas) {
                 writer.println(p);
             }
-            System.out.println("Archivo CSV escrito exitosamente.");
+            System.out.println("\nArchivo CSV escrito exitosamente.");
         } catch (IOException e) {
             System.out.println("Error al escribir el archivo: " + e.getMessage());
         }
