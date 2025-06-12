@@ -6,8 +6,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Persona {
     String nombre;
@@ -26,27 +25,44 @@ public class XMLPrograma {
     static final String ARCHIVO_XML = "personas.xml";
 
     public static void main(String[] args) {
-        // Crear arreglo
-        Persona[] personas = {
-            new Persona("Ana", 25, "Lima"),
-            new Persona("Luis", 30, "Bogotá"),
-            new Persona("Sofía", 22, "Quito")
-        };
+        Scanner scanner = new Scanner(System.in);
+        List<Persona> personas = new ArrayList<>();
 
-        // Escribir XML
+        // Ingreso dinámico de datos
+        System.out.println("=== Ingreso de personas ===");
+        while (true) {
+            System.out.print("Nombre: ");
+            String nombre = scanner.nextLine();
+
+            System.out.print("Edad: ");
+            int edad = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("Ciudad: ");
+            String ciudad = scanner.nextLine();
+
+            personas.add(new Persona(nombre, edad, ciudad));
+
+            System.out.print("¿Deseas ingresar otra persona? (s/n): ");
+            String continuar = scanner.nextLine();
+            if (!continuar.equalsIgnoreCase("s")) break;
+        }
+
+        // Escribir al archivo XML
         escribirXML(personas);
 
-        // Leer XML
+        // Leer desde archivo XML
         List<Persona> listaLeida = leerXML();
 
         // Mostrar los datos leídos
-        System.out.println("Datos leídos desde XML:");
+        System.out.println("\n=== Datos leídos desde XML ===");
         for (Persona p : listaLeida) {
             System.out.println(p.nombre + " - " + p.edad + " - " + p.ciudad);
         }
+
+        scanner.close();
     }
 
-    public static void escribirXML(Persona[] personas) {
+    public static void escribirXML(List<Persona> personas) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -84,7 +100,7 @@ public class XMLPrograma {
 
             System.out.println("Archivo XML escrito exitosamente.");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error al escribir XML: " + e.getMessage());
         }
     }
 
@@ -93,6 +109,11 @@ public class XMLPrograma {
 
         try {
             File xmlFile = new File(ARCHIVO_XML);
+            if (!xmlFile.exists()) {
+                System.out.println("El archivo XML no existe todavía.");
+                return personas;
+            }
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
@@ -115,7 +136,7 @@ public class XMLPrograma {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error al leer XML: " + e.getMessage());
         }
 
         return personas;
