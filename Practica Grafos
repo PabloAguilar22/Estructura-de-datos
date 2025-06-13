@@ -1,0 +1,55 @@
+class Grafo:
+    def _init_(self, dirigido=False):
+        self.grafo = {}
+        self.dirigido = dirigido
+
+    def agregar_vertice(self, vertice):
+        if vertice not in self.grafo:
+            self.grafo[vertice] = []
+
+    def agregar_arista(self, origen, destino):
+        self.agregar_vertice(origen)
+        self.agregar_vertice(destino)
+        self.grafo[origen].append(destino)
+        if not self.dirigido:
+            self.grafo[destino].append(origen)
+
+    def mostrar_grafo(self):
+        for vertice, adyacentes in self.grafo.items():
+            print(f"{vertice} -> {', '.join(adyacentes)}")
+
+    def tiene_ciclo(self):
+        visitado = set()
+
+        def dfs(v, padre):
+            visitado.add(v)
+            for vecino in self.grafo[v]:
+                if vecino not in visitado:
+                    if dfs(vecino, v):
+                        return True
+                elif vecino != padre:
+                    return True
+            return False
+
+        for vertice in self.grafo:
+            if vertice not in visitado:
+                if dfs(vertice, None):
+                    return True
+        return False
+
+
+# Ejemplo de uso
+g = Grafo(dirigido=False)  # Usa True para crear un dígrafo
+
+g.agregar_arista("A", "B")
+g.agregar_arista("A", "C")
+g.agregar_arista("B", "D")
+g.agregar_arista("C", "D")
+
+print("Grafo:")
+g.mostrar_grafo()
+
+if g.tiene_ciclo():
+    print("El grafo tiene un ciclo.")
+else:
+    print("El grafo no tiene ciclos.")
